@@ -1,0 +1,53 @@
+<mvc:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns="sap.m" controllerName="vim.ap.controller.Detail"
+	xmlns:html="http://www.w3.org/1999/xhtml" class="sapUiSizeCompact">
+	<App>
+		<pages>	
+		 <Page title="{i18n>ER_CREATE_TITLE}" class="sapUiFioriObjectPage sapUiSizeCompact" id="RecordDetailPage" showHeader="false" backgroundDesign="Solid" >
+				<content>
+					<IconTabBar id="idHeadIconTabBar" selectedKey="idHeaderIconTabFilter" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding">
+						<items>
+							<IconTabFilter key="idHeaderIconTabFilter" icon="sap-icon://notes" text="Header">
+								<content>
+									<core:Fragment fragmentName="vim.ap.fragment.Header" type="XML"/>
+								</content>
+							</IconTabFilter>
+							<IconTabFilter icon="sap-icon://comment" text="Notes">
+								<content>
+									<core:Fragment fragmentName="vim.ap.fragment.Notes" type="XML"/>
+								</content>
+							</IconTabFilter>
+							<IconTabFilter icon="sap-icon://employee-approvals" text="Approvers">
+								<content>
+									<core:Fragment fragmentName="vim.ap.fragment.Approver" type="XML"/>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<IconTabBar id="idItemsIconTabBar" class="sapUiResponsiveContentPadding">
+						<items>
+							<IconTabFilter key="idItemIconTabFilter" icon="sap-icon://payment-approval" text="Items">
+								<content>
+									<core:Fragment fragmentName="vim.ap.fragment.Items" type="XML"/>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
+				<footer>
+					<Toolbar>
+						<content>
+							<Button id="idMessageButton" icon="sap-icon://message-popup" text="{detailView>/Messages/length} {=${detailView>/footer/message/visible}}"
+							visible="{=${detailView>/Messages/length} > 0}" type="{detailView>/footer/message/type}" press="handleMessagePopoverPress" />
+							<ToolbarSpacer />
+							<Button visible="{=${detailView>/footer/submit/visible}}" type="Accept" text="Submit" press="handleSubmit" tooltip="Submit" />
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

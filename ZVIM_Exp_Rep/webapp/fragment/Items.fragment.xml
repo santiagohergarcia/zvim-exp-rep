@@ -1,0 +1,81 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Table selectionChange="handleSelectionChange" noDataText="No items yet" mode="SingleSelectMaster" id="idItemsTable"
+    items="{detailView>/InvoiceItems}">
+        <headerToolbar>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button  id="eradd"  tooltip ="{i18n>addItems}" icon="sap-icon://add" press="handleAddItem"/>
+                <Button  tooltip ="{i18n>deleteLines}" icon="sap-icon://less" press="handleInvoiceDeleteItem"/>
+                <Button  tooltip = "{i18n>copyLines}" icon="sap-icon://copy" press="handleERCopyItem"/>
+                <Button  visible = "false" tooltip ="{i18n>useCreditCardLines}" icon="sap-icon://credit-card" press="handleCClines"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column >
+                <Text text="{i18n>expensType}" />
+            </Column> 
+            <Column >
+                <Text text="{i18n>amount}" />
+            </Column>
+            
+            <Column>
+                <Text text="{i18n>expensDate}" />
+            </Column>
+            
+            <Column>
+                <Text text="{i18n>g/lAccount}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>paymentMethod}"/>
+            </Column>
+            <Column>
+                <Text text="{i18n>order}"/>
+            </Column>
+            <Column>
+                <Text text="{i18n>lineItemText}" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem vAlign="Middle">
+                <cells>
+                    <!-- Expense Type -->
+                        <Select change="handleExpTypeChange"  forceSelection="true" selectedKey="{detailView>CustomField3}" 
+                        items="{path: 'detailView>/ExpenseTypeSet',templateShareable : false}">
+                            <core:Item key="{detailView>ExpType}" text="{detailView>NameOfExpType}" />
+                        </Select>
+                    <!-- Amount-->
+                        <Input id ="Exp" placeholder= "Amount"  value="{detailView>Wrbtr}"  type="Number" change="handleReimbursementAmount"/>
+                    <!-- Expense Date -->
+                      <DatePicker placeholder= "Date"  dateValue="{detailView>Valut}"/>
+                    <!-- GL Account -->
+                        <Input  id="idInputGLAccount" placeholder= "Glacc" value="{detailView>Hkont}" showValueHelp="true" 
+                        app:ovsService="GLOVSSet" app:ovsSearchField1="GLAccount" app:ovsSearchField2="GLDescript" 
+                        app:ovsResultField1="GLAccount" app:ovsResultField2="GLDescript" app:ovsTitle="Select a G/L Account" 
+                        app:resultColumnDesc1="G/L Account" app:resultColumnDesc2="Description" app:ovsAdditionalField="Gltxt" 
+                        app:ovsAdditionalFieldValue="GLDescript" 
+                        app:ovsReqdField="{detailView>/userDetail/Bukrs}" app:ovsReqdFilter= "CompanyCode" 
+                        valueHelpRequest="handleValueHelp"/>
+                    
+                        <Select forceSelection="true" selectedKey="{detailView>PymntTerms}" enabled="false"
+                        items="{detailView>/PaymentMethods}">
+                            <core:Item key="{detailView>TermsOfPaymentKey}" text="{detailView>TermsOfPayment}" />
+                        </Select>
+                        <Input  id="idInputInvoiceAufnr" placeholder= "Order"  showValueHelp="true"
+                        value="{detailView>Aufnr}" 
+                        app:ovsService="OrderNumberOVSSet" app:ovsSearchField1="OrderNumber" 
+                        app:ovsSearchField2="Description" app:ovsResultField1="OrderNumber" 
+                        app:ovsResultField2="Description" app:ovsTitle="Select an Order Number" 
+                        app:resultColumnDesc1="Order Number" app:resultColumnDesc2="Description" 
+                        app:ovsAdditionalField="Aufnrtxt" app:ovsAdditionalFieldValue="Description" 
+                        app:ovsReqdField="{detailView>/userDetail/Bukrs}" app:ovsReqdFilter= "CompanyCode" valueHelpRequest="handleValueHelp"/>
+                        <Input  value="{detailView>Sgtxt}" maxLength="50"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>
