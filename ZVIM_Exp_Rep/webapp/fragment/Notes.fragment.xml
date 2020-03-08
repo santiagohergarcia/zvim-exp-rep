@@ -1,0 +1,6 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <TextArea  value="{detailView>/notes}" id="textareaid"  width="99%" rows="5"/>
+</core:FragmentDefinition>

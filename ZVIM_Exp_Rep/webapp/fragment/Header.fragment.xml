@@ -1,0 +1,51 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <f:SimpleForm   class="editableForm" id="idHeaderDetailsForm" layout="ResponsiveLayout" 
+                    title = "New Expense Report"  editable="true" 
+                    adjustLabelSpan="false" labelSpanXL="6" labelSpanL="3" labelSpanM="4" 
+                    labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+                    columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+        <f:content>
+ 
+            <core:Title/>
+            <!-- Header Text -->
+            <Label text="{i18n>headerText}" required="true"/>
+            <Input  id="idInputTripTitle" value="{detailView>/DocumentHeaderText}" maxLength="25" width="15rem"/>
+            <!-- Date  -->
+            <Label text="{i18n>repdate}"  />
+            <DatePicker placeholder="{i18n>REPORTDATE}" dateValue="{detailView>/reportDate}" width="15rem" required="true"/>
+            <!-- User Id -->
+            <Label text = "{i18n>userID}" required="true"/>
+            <Input  id = "idInputXuserReportFor" change = "handleReportForChange" showValueHelp="true" 
+                    app:ovsService="UserListSet" app:ovsSearchField1="USER" app:ovsResultField1="Xuser" 
+                    app:ovsResultField2="Email" app:ovsTitle="Select a User" app:resultColumnDesc1="Email" 
+                    app:resultColumnDesc2="User ID" app:ovsAdditionalField="idInputXuserName" 
+                    description="{detailView>/userDetail/Fname} {detailView>/userDetail/Lname}"
+                    app:ovsAdditionalFieldValue="Email" valueHelpRequest="handleReportForValueHelp" 
+                    placeholder= "Approver ID" value="{detailView>/userDetail/USER}"
+                    tooltip ="{i18n>changeCCC}" 
+                    width="15rem"/>
+            <core:Title/>
+      
+            <!-- Currency -->
+            <Label wrapping ="true" text="{i18n>reimburseCurrency}" />
+            <Text id="idHeaderCurrency" text="{detailView>/userDetail/Waers}" />
+
+            <!-- Amount -->
+            <Label wrapping ="true" text="{i18n>reimbursAmt}" />
+            <Text  wrapping ="true" id = "idHeaderAmount" text="{detailView>/userDetail/Amount}" />
+           
+            <!-- Cost Center -->
+            <Label wrapping ="true" text="{i18n>costCenter}" />
+            <Text id="idInputKostl" text="{parts:['detailView>/userDetail/Kostl'],formatter:'.formatter.removeLeadingZeros'}" />
+
+            <!-- Company Code -->
+            <Label wrapping ="true" text="{i18n>companyCode}" />
+            <Text id="idInputBukrs" text="{detailView>/userDetail/Bukrs}" />
+        </f:content>
+    </f:SimpleForm>
+</core:FragmentDefinition>
